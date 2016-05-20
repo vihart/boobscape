@@ -4,16 +4,22 @@
 	<head>
 		<title>Boobscape VR</title>
 		<!--
+		by Vi Hart,
 		Result of an afternoon workgroup on feminist procedural content generation at BIRS
-		Attribution
-		eleVR webvr boilerplate: https://github.com/hawksley
+		
+		uses eleVR webvr boilerplate: https://github.com/hawksley
 		-->
 	</head>
 
 	<body>
+
+	<audio id='kick' src="media/kick.ogg" >
+	<audio id='snare' src="media/snare.ogg" >
+	<audio id='hat' src="media/hat.ogg" >
 	</body>
 
 	<script src="js/boobscape.js"></script>
+	<script src="js/karaoke.js"></script>
 	<script src="js/three.min.js"></script>
 	<script src="js/VRControls.js"></script>
 	<script src="js/VREffect.js"></script>
@@ -82,10 +88,9 @@
 		/*
 		Request animation frame loop function
 		*/
-		var t = 1;
 		function animate() {
 
-			t += 1;
+			playKaraoke();
 
 			camera.position.y = 2 + boobFunction(-camera.position.x, camera.position.z, seed);
 
