@@ -18,8 +18,8 @@
 	<audio id='hat' src="media/hat.ogg" >
 	</body>
 
-	<script src="js/boobscape.js"></script>
 	<script src="js/karaoke.js"></script>
+	<script src="js/boobscape.js"></script>
 	<script src="js/three.min.js"></script>
 	<script src="js/VRControls.js"></script>
 	<script src="js/VREffect.js"></script>
@@ -79,18 +79,24 @@
 		var seed = Math.random();
 		var boobscape = generateBoobscape(seed);
 		everything.add(boobscape);
+		var bouncing = false;
 
 		scene.add(everything);
 
 		//camera position default for nonVR browsers:
-		camera.position.set(0, 3, 0);
+		camera.position.set(20*Math.random(), 3, 20*Math.random());
 
 		/*
 		Request animation frame loop function
 		*/
 		function animate() {
 
-			playKaraoke();
+			if(playing){
+				playKaraoke();
+			}
+			if(bouncing){
+				bounce();
+			}
 
 			camera.position.y = 2 + boobFunction(-camera.position.x, camera.position.z, seed);
 
@@ -134,7 +140,12 @@
 	    	controls.zeroSensor(); //zero rotation
 	    } else if (event.keyCode == 70) { //f
 	    	effect.setFullScreen(true) //fullscreen
-	  	} else if (event.keyCode == 86 || event.keyCode == 13 || event.keyCode == 32 ) { // v or 'enter' or 'space' for VR mode
+	    } else if (event.keyCode == 80){ //play or pause karaoke music
+	    	playing = !playing;
+			vca.gain.value = 0;
+	  	} else if (event.keyCode == 32){
+	  		bouncing = !bouncing;
+	  	} else if (event.keyCode == 86 || event.keyCode == 13 ) { // v or 'enter' for VR mode
 		    vrMode = !vrMode;
 		    effect.setVRMode(vrMode);
 			}

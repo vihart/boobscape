@@ -1,3 +1,4 @@
+var playing = true;
 
 //defined manually, probabilities of hits at each of 16 beats:
 var kickProbs = [
