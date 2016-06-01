@@ -18,7 +18,9 @@
 	<audio id='hat' src="media/hat.ogg" >
 	</body>
 
+
 	<script src="js/karaoke.js"></script>
+	<script src="js/particleDraw.js"></script>
 	<script src="js/boobscape.js"></script>
 	<script src="js/three.min.js"></script>
 	<script src="js/VRControls.js"></script>
@@ -75,11 +77,16 @@
 		light2.intensity = 1.5;
 		everything.add( light2 );
 
+		var sparkleNumber = 500;
+		var sparkles = prepSparkles(sparkleNumber);
+		everything.add(sparkles);
+
 		//generate boobscape:
-		var seed = Math.random();
+		var seed = 0.1 + 0.9*Math.random();
 		var boobscape = generateBoobscape(seed);
 		everything.add(boobscape);
 		var bouncing = true;
+
 
 		scene.add(everything);
 
@@ -90,6 +97,10 @@
 		Request animation frame loop function
 		*/
 		function animate() {
+
+			drawSparkle(s);
+			s++;
+			sparkleUpdate();
 
 			if(playing){
 				playKaraoke();
